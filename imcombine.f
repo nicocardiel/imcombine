@@ -1704,7 +1704,6 @@ C------------------------------------------------------------------------------
         END IF
 C------------------------------------------------------------------------------
         CALL PGERAS
-        CALL PGSUBP(2,2)
         WRITE(CDUMMY,*) BG
         BG=READF('Background',CDUMMY)
         WRITE(CDUMMY,*) FG
@@ -1798,8 +1797,9 @@ C frame NF
           XMAX=REAL(NX2)+0.6
           YMIN=REAL(NY1)-0.6
           YMAX=REAL(NY2)+0.6
-          CALL PGPANL(1,1)
-          CALL PGENV(XMIN,XMAX,YMIN,YMAX,1,-2)
+          CALL PGSUBP(1,1)
+          CALL PGSVP(0.07,0.95,0.57,0.95)
+          CALL PGSWIN(XMIN,XMAX,YMIN,YMAX)
           CALL PGSCI(5)
           CALL PGBOX('BCTSNI',0.0,0,'BCTSNI',0.0,0)
           CALL PGSCI(7)
@@ -1807,6 +1807,7 @@ C frame NF
           CALL PGSCI(1)
           CALL PGGRAY(STACK_DATA,NXMAX,NMAXFRAMES,
      +     NX1,NX2,NY1,NY2,FG,BG,TR)
+          CALL PGSUBP(2,2)
           !hacemos estadistica para cada pixel en el stack
           DO I=I1,I2
             DO J=1,NAXIS(1)
@@ -1898,7 +1899,7 @@ C frame NF
           YMIN=REAL(NY1)-0.6
           YMAX=REAL(NY2)+0.6
           CALL PGPANL(1,2)
-          CALL PGENV(XMIN,XMAX,YMIN,YMAX,1,-2)
+          CALL PGENV(XMIN,XMAX,YMIN,YMAX,0,-2)
           CALL PGSCI(5)
           CALL PGBOX('BCTSNI',0.0,0,'BCTSNI',0.0,0)
           CALL PGSCI(7)
@@ -1907,7 +1908,7 @@ C frame NF
           CALL PGGRAY(IMAGEN_FINAL_NPIXELS,
      +     NXMAX,NYMAX,NX1,NX2,NY1,NY2,REAL(NFRAMES),0.0,TR)
           CALL PGPANL(2,1)
-          CALL PGENV(XMIN,XMAX,YMIN,YMAX,1,-2)
+          CALL PGENV(XMIN,XMAX,YMIN,YMAX,0,-2)
           CALL PGSCI(5)
           CALL PGBOX('BCTSNI',0.0,0,'BCTSNI',0.0,0)
           CALL PGSCI(7)
