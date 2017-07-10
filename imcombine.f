@@ -70,9 +70,9 @@ C
         REAL FRAME_DARK(NXMAXF,NYMAXF)
         REAL FRAME_FLAT(NXMAXF,NYMAXF)
         REAL FMEDIAN_RAW(NMAXFRAMES)
-        REAL FMEDIAN_RAW_QUAD(NMAXREG)
+        REAL FMEDIAN_RAW_REG(NMAXREG)
         REAL FMEDIAN_SKY(NMAXFRAMES)
-        REAL FMEDIAN_SKY_QUAD(NMAXREG)
+        REAL FMEDIAN_SKY_REG(NMAXREG)
         REAL FRAME_SUMFLAT(NXMAXF,NYMAXF)
         REAL FRAME_DATA(NXMAXF,NYMAXF)
         REAL FROW(NXMAX)
@@ -917,25 +917,25 @@ C (1) normalize individual (raw-dark) frames
                     END DO
                   END DO
                   IF(K.GT.0)THEN
-                    FMEDIAN_RAW_QUAD(IREG)=FMEDIAN1(K,PIXEL)
+                    FMEDIAN_RAW_REG(IREG)=FMEDIAN1(K,PIXEL)
                   ELSE
-                    FMEDIAN_RAW_QUAD(IREG)=1.0
+                    FMEDIAN_RAW_REG(IREG)=1.0
                   END IF
                   IF(NF.EQ.NF1)THEN
-                    WRITE(*,100) 'ireg, k, fmedian_raw_quad: '
-                    WRITE(*,*) IREG, K, FMEDIAN_RAW_QUAD(IREG)
+                    WRITE(*,100) 'ireg, k, fmedian_raw_ireg: '
+                    WRITE(*,*) IREG, K, FMEDIAN_RAW_REG(IREG)
                   END IF
                   !normalizamos
                   DO I=NY1Q,NY2Q
                     DO J=NX1Q,NX2Q
                       FRAME_DATA(J,I)=FRAME_DATA(J,I)/
-     +                 FMEDIAN_RAW_QUAD(IREG)
+     +                 FMEDIAN_RAW_REG(IREG)
                     END DO
                   END DO
-                    FMEDIAN_RAW(NF)=FMEDIAN_RAW(NF)+
-     +               FMEDIAN_RAW_QUAD(IREG)
+                  FMEDIAN_RAW(NF)=FMEDIAN_RAW(NF)+
+     +             FMEDIAN_RAW_REG(IREG)
                 END DO
-                FMEDIAN_RAW(NF)=FMEDIAN_RAW_QUAD(IREG)/REAL(NREG)
+                FMEDIAN_RAW(NF)=FMEDIAN_RAW_REG(IREG)/REAL(NREG)
               !----------------------------------------------------------------
               ELSE IF(CSKY.EQ.'1')THEN
                 !calculamos la mediana en (frame-dark), eliminando en el
@@ -978,23 +978,23 @@ C (1) normalize individual (raw-dark) frames
                     END DO
                   END DO
                   IF(K.GT.0)THEN
-                    FMEDIAN_RAW_QUAD(IREG)=FMEDIAN1(K,PIXEL)
+                    FMEDIAN_RAW_REG(IREG)=FMEDIAN1(K,PIXEL)
                   ELSE
-                    FMEDIAN_RAW_QUAD(IREG)=1.0
+                    FMEDIAN_RAW_REG(IREG)=1.0
                   END IF
                   IF(NF.EQ.NF1)THEN
-                    WRITE(*,100) 'ireg, k, fmedian_raw_quad: '
-                    WRITE(*,*) IREG, K, FMEDIAN_RAW_QUAD(IREG)
+                    WRITE(*,100) 'ireg, k, fmedian_raw_ireg: '
+                    WRITE(*,*) IREG, K, FMEDIAN_RAW_REG(IREG)
                   END IF
                   !normalizamos
                   DO I=NY1Q,NY2Q
                     DO J=NX1Q,NX2Q
                       FRAME_DATA(J,I)=FRAME_DATA(J,I)/
-     +                 FMEDIAN_RAW_QUAD(IREG)
+     +                 FMEDIAN_RAW_REG(IREG)
                     END DO
                   END DO
                   FMEDIAN_RAW(NF)=FMEDIAN_RAW(NF)+
-     +             FMEDIAN_RAW_QUAD(IREG)
+     +             FMEDIAN_RAW_REG(IREG)
                 END DO
                 FMEDIAN_RAW(NF)=FMEDIAN_RAW(NF)/REAL(NREG)
               !----------------------------------------------------------------
@@ -1508,15 +1508,15 @@ C
                       END IF
                     END DO
                   END DO
-                  FMEDIAN_SKY_QUAD(IREG)=FMEDIAN1(K,PIXEL)
+                  FMEDIAN_SKY_REG(IREG)=FMEDIAN1(K,PIXEL)
                   DO I=NY1Q,NY2Q
                     DO J=NX1Q,NX2Q
                       FRAME_DATA(J,I)=FRAME_DATA(J,I)-
-     +                 FMEDIAN_SKY_QUAD(IREG)
+     +                 FMEDIAN_SKY_REG(IREG)
                     END DO
                   END DO
                   FMEDIAN_SKY(NF)=FMEDIAN_SKY(NF)+
-     +             FMEDIAN_SKY_QUAD(IREG)
+     +             FMEDIAN_SKY_REG(IREG)
                 END DO
                 FMEDIAN_SKY(NF)=FMEDIAN_SKY(NF)/REAL(NREG)
                 WRITE(*,*)
@@ -1552,18 +1552,18 @@ C
                     END DO
                   END DO
                   IF(K.GT.0)THEN
-                    FMEDIAN_SKY_QUAD(IREG)=FMEDIAN1(K,PIXEL)
+                    FMEDIAN_SKY_REG(IREG)=FMEDIAN1(K,PIXEL)
                   ELSE
-                    FMEDIAN_SKY_QUAD(IREG)=0.0
+                    FMEDIAN_SKY_REG(IREG)=0.0
                   END IF
                   DO I=NY1Q,NY2Q
                     DO J=NX1Q,NX2Q
                       FRAME_DATA(J,I)=FRAME_DATA(J,I)-
-     +                 FMEDIAN_SKY_QUAD(IREG)
+     +                 FMEDIAN_SKY_REG(IREG)
                     END DO
                   END DO
                   FMEDIAN_SKY(NF)=FMEDIAN_SKY(NF)+
-     +             FMEDIAN_SKY_QUAD(IREG)
+     +             FMEDIAN_SKY_REG(IREG)
                 END DO
                 FMEDIAN_SKY(NF)=FMEDIAN_SKY(NF)/REAL(NREG)
                 WRITE(*,*)
