@@ -1,0 +1,57 @@
+C Dibuja el frame
+C Si LBGFG=.TRUE., la rutina calcula BG y FG con SONDEA4C
+        SUBROUTINE DIBUFRAME(FRAME,NXMAXD,NYMAXD,NAXIS1,NAXIS2,
+     +   NX1,NX2,NY1,NY2,FILELABEL,LBGFG,BG,FG)
+        IMPLICIT NONE
+        INTEGER NXMAXD,NYMAXD
+        INTEGER NAXIS1,NAXIS2
+        INTEGER NX1,NX2,NY1,NY2
+        REAL FRAME(NXMAXD,NYMAXD)
+        CHARACTER*(*) FILELABEL
+        LOGICAL LBGFG
+        REAL BG,FG
+C
+        INTEGER L
+        REAL TR(6)
+        REAL XMIN,XMAX,YMIN,YMAX
+        REAL SONDEO4C_FMEAN,SONDEO4C_FSIGMA
+        CHARACTER*50 CDUMMY
+C------------------------------------------------------------------------------
+        TR(1)=0.
+        TR(2)=1.
+        TR(3)=0.
+        TR(4)=0.
+        TR(5)=0.
+        TR(6)=1.
+C
+        XMIN=REAL(NX1)-0.6
+        XMAX=REAL(NX2)+0.6
+        YMIN=REAL(NY1)-0.6
+        YMAX=REAL(NY2)+0.6
+        CALL PGERAS
+        CALL PGSUBP(1,1)
+        CALL PGERAS
+        CALL PGENV(XMIN,XMAX,YMIN,YMAX,1,-2)
+        CALL PGSCI(5)
+        CALL PGBOX('BCTSNI',0.0,0,'BCTSNI',0.0,0)
+        CALL PGSCI(7)
+        CALL PGLABEL('X axis','Y axis',FILELABEL)
+        CALL PGSCI(1)
+C
+        IF(LBGFG)THEN
+          CALL SONDEA4C(FRAME,NXMAXD,NYMAXD,NAXIS1,NAXIS2,
+     +     SONDEO4C_FMEAN,SONDEO4C_FSIGMA)
+          BG=SONDEO4C_FMEAN-8.0*SONDEO4C_FSIGMA
+          FG=SONDEO4C_FMEAN+8.0*SONDEO4C_FSIGMA
+        END IF
+C
+        WRITE(CDUMMY,*) BG
+        CALL RMBLANK(CDUMMY,CDUMMY,L)
+        CALL PGMTXT('T',2.0,0.0,0.0,'BG: '//CDUMMY(1:L))
+        WRITE(CDUMMY,*) FG
+        CALL RMBLANK(CDUMMY,CDUMMY,L)
+        CALL PGMTXT('T',2.0,1.0,1.0,'FG: '//CDUMMY(1:L))
+C
+        CALL PGGRAY(FRAME,NXMAXD,NYMAXD,NX1,NX2,NY1,NY2,FG,BG,TR)
+
+        END

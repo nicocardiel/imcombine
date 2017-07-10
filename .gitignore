@@ -1,0 +1,14 @@
+# use glob syntax.
+syntax: glob
+
+.gitignore~
+
+*.o
+
+dimensions.inc
+imcombine_dir.inc
+sexpath.inc
+
+imcombine
+
+imcombine.dSYM*
