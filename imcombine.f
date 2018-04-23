@@ -276,9 +276,6 @@ C mascara para todos los frames)
             END IF
           END IF
         END DO
-        WRITE(*,100) 'Computing cosmetic defects mask...'
-        CALL MASKFRAME(FILE_MASK_FRAME)
-        WRITE(*,101) '...OK!'
 C------------------------------------------------------------------------------
 C chequeamos que los frames existen
         WRITE(*,100) 'Checking frames...'
@@ -447,6 +444,12 @@ C comprobamos si todos los frames tienen las mismas dimensiones
           CALL PGEND
           STOP
         END IF
+C------------------------------------------------------------------------------
+C generamos mascara de defectos cosmeticos y en caso de ser una imagen FITS
+C comprobamos si tiene las dimensiones esperadas
+        WRITE(*,100) 'Computing cosmetic defects mask...'
+        CALL MASKFRAME(FILE_MASK_FRAME, NAXISF1, NAXISF2)
+        WRITE(*,101) '...OK!'
 C------------------------------------------------------------------------------
 C determinamos dimension final de la imagen compuesta
         IXMIN=1+OFFX(1)
