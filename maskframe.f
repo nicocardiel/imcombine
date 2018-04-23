@@ -56,6 +56,7 @@ C si es una imagen FITS, suponemos 0=.FALSE. y >0=.TRUE.
               ISTATUS=0
             END IF
             IF(EXTEND)THEN
+              WRITE(*,*)
               WRITE(*,101) '***WARNING***'
               WRITE(*,101) 'MASKFRAME> this file contains extensions'
               NEW_HDU=READI('Extension number to be read (1=primary)',
@@ -67,6 +68,7 @@ C si es una imagen FITS, suponemos 0=.FALSE. y >0=.TRUE.
             !comprobamos que NAXIS=2
             CALL FTGKYJ(IUNIT,'NAXIS',NAXIS_(0),COMMENT,ISTATUS)
             IF(NAXIS_(0).GT.2)THEN
+              WRITE(*,*)
               WRITE(*,101) '***FATAL ERROR***'
               WRITE(*,100) 'MASKFRAME> NAXIS='
               WRITE(*,*) NAXIS_(0)
@@ -80,6 +82,7 @@ C si es una imagen FITS, suponemos 0=.FALSE. y >0=.TRUE.
             CALL FTGKNJ(IUNIT,'NAXIS',1,2,NAXIS_(1),NFOUND,ISTATUS)
             !comprobamos si tenemos los valores esperados de NAXIS
             IF((NAXISF1.NE.NAXIS_(1)).OR.(NAXISF2.NE.NAXIS_(2)))THEN
+              WRITE(*,*)
               WRITE(*,101) '***FATAL ERROR***'
               WRITE(*,100) 'MASKFRAME> NAXIS1 (expected, read): '
               WRITE(*,*) NAXISF1, NAXIS_(1)
@@ -103,6 +106,7 @@ C si es una imagen FITS, suponemos 0=.FALSE. y >0=.TRUE.
                 END IF
               END DO
             ELSE
+              WRITE(*,*)
               WRITE(*,101) '***FATAL ERROR***'
               WRITE(*,100) 'MASKFRAME> Unexpected BITPIX ='
               WRITE(*,*) BITPIX
