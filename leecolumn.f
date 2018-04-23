@@ -26,7 +26,7 @@ C
           L=INDEX(CLINEA(L1:L2),' ') !siguiente espacio en blanco
           IF(L.EQ.0)THEN
             WRITE(*,101)'ERROR in LEECOLUMN: column no. does not exist.'
-            RETURN
+            STOP
           END IF
           L=L1+L-1
           L1=TRUEBEG(CLINEA(L:L2))
@@ -37,6 +37,9 @@ C
             RETURN
           END IF
         END DO
+C
+        WRITE(*,101)'ERROR in LEECOLUMN: unexpected end of function'
+        STOP
 C
 101     FORMAT(A)
         END
