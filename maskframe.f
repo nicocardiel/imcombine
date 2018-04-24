@@ -115,8 +115,8 @@ C si es una imagen FITS, suponemos 0=.FALSE. y >0=.TRUE.
             END IF
             !cerramos el fichero
             CALL FTCLOS(IUNIT,ISTATUS)
+            RETURN
           END IF
-          RETURN
         END IF
 C------------------------------------------------------------------------------
 C fichero ASCII con el formato historico
