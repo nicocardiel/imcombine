@@ -69,6 +69,7 @@ FSOURCE = dibuframe.f \
           multiplica.f \
           ordena1f.f \
           ordena1f1i.f \
+          palette.f \
           printanynull.f \
           printerror.f \
           randomnumber.f \

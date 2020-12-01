@@ -199,6 +199,7 @@ c abrimos la salida grafica
           LECHO=.FALSE.
         END IF
         CALL PGBEGIN(0,TTER,1,1)
+        CALL PALETTE(3)
         CALL PGASK(.FALSE.)
         CALL PGSCF(2)
 C------------------------------------------------------------------------------
@@ -1805,7 +1806,7 @@ C frame NF
           CALL PGSCI(7)
           CALL PGLABEL('X axis','Y axis',' ')
           CALL PGSCI(1)
-          CALL PGGRAY(STACK_DATA,NXMAX,NMAXFRAMES,
+          CALL PGIMAG(STACK_DATA,NXMAX,NMAXFRAMES,
      +     NX1,NX2,NY1,NY2,FG,BG,TR)
           CALL PGSUBP(2,2)
           !hacemos estadistica para cada pixel en el stack
@@ -1905,7 +1906,7 @@ C frame NF
           CALL PGSCI(7)
           CALL PGLABEL('X axis','Y axis',' ')
           CALL PGSCI(1)
-          CALL PGGRAY(IMAGEN_FINAL_NPIXELS,
+          CALL PGIMAG(IMAGEN_FINAL_NPIXELS,
      +     NXMAX,NYMAX,NX1,NX2,NY1,NY2,REAL(NFRAMES),0.0,TR)
           CALL PGPANL(2,1)
           CALL PGENV(XMIN,XMAX,YMIN,YMAX,0,-2)
@@ -1914,7 +1915,7 @@ C frame NF
           CALL PGSCI(7)
           CALL PGLABEL('X axis','Y axis',' ')
           CALL PGSCI(1)
-          CALL PGGRAY(IMAGEN_FINAL,
+          CALL PGIMAG(IMAGEN_FINAL,
      +     NXMAX,NYMAX,NX1,NX2,NY1,NY2,FG,BG,TR)
           !incrementamos I1 e I2
           IF(I2.EQ.NAXIS(2)) LOOP=.FALSE.
@@ -2204,7 +2205,7 @@ c dibujamos imagen con numero de pixels
         CALL PGSCI(7)
         CALL PGLABEL('X axis','Y axis',' ')
         CALL PGSCI(1)
-        CALL PGGRAY(IMAGEN_FINAL_NPIXELS,
+        CALL PGIMAG(IMAGEN_FINAL_NPIXELS,
      +   NXMAX,NYMAX,NX1,NX2,NY1,NY2,FG,BG,TR)
 c creamos fake error image
         WRITE(*,100) 'Creating fake sky error image...'
@@ -2235,7 +2236,7 @@ c dibujamos fake error image
         CALL PGSCI(7)
         CALL PGLABEL('X axis','Y axis',' ')
         CALL PGSCI(1)
-        CALL PGGRAY(IMAGEN_FINAL,
+        CALL PGIMAG(IMAGEN_FINAL,
      +   NXMAX,NYMAX,NX1,NX2,NY1,NY2,FG,BG,TR)
 c salvamos fake error image
         CSAVE(1:1)=
@@ -2281,7 +2282,7 @@ c dibujamos imagen de datos con los mismos cortes que la fake error image
             CALL PGLABEL('X axis','Y axis',' ')
             CALL PGSCI(1)
           END IF
-          CALL PGGRAY(IMAGEN_FINAL,
+          CALL PGIMAG(IMAGEN_FINAL,
      +     NXMAX,NYMAX,NX1,NX2,NY1,NY2,FG,BG,TR)
           WRITE(*,*)
           WRITE(*,101) '0: exit'
