@@ -43,7 +43,7 @@ SEXPATH = /Users/cardiel/s/sextractor/sextractor-2.5.0/src
 #------------------------------------------------------------------------------
 # Set the appropiate FORTRAN compiler
 #FCOMPIL = g77 -O3 -g -Wall
-FCOMPIL = gfortran-mp-9 -O2 -g -Wall
+FCOMPIL = gfortran-mp-10 -O2 -g -Wall -L/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib
 #------------------------------------------------------------------------------
 #------------------------------------------------------------------------------
 # Nothing SHOULD be modified below this comment line
